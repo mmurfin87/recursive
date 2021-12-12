@@ -21,9 +21,9 @@ public class AdditionTerm extends Term
 		final Term addendTerm = context.accept("addend").map(e -> e.resolve(context)).orElse(null);
 		final Term sumTerm = context.accept("sum").map(e -> e.resolve(context)).orElse(null);
 
-		final BigDecimal augend = augendTerm != null ? new BigDecimal(augendTerm.value) : null;
-		final BigDecimal addend = addendTerm != null ? new BigDecimal(addendTerm.value) : null;
-		final BigDecimal sum = sumTerm != null ? new BigDecimal(sumTerm.value) : null;
+		final BigDecimal augend = augendTerm != null ? new BigDecimal(augendTerm.name) : null;
+		final BigDecimal addend = addendTerm != null ? new BigDecimal(addendTerm.name) : null;
+		final BigDecimal sum = sumTerm != null ? new BigDecimal(sumTerm.name) : null;
 
 		switch ((int) Stream.of(augend, addend, sum).filter(Objects::nonNull).count())
 		{

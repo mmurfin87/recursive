@@ -19,7 +19,7 @@ public class Invocation extends Expression
 	{
 		return new Expression(bindings
 			.load(context)
-			.expect(value.value)
+			.expect(value.name)
 			.resolve(context)
 		);
 	}

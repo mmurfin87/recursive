@@ -22,9 +22,9 @@ public class SubtractionTerm extends Term
 		final Term subtrahendTerm = context.accept("subtrahend").map(e -> e.resolve(context)).orElse(null);
 		final Term differenceTerm = context.accept("difference").map(e -> e.resolve(context)).orElse(null);
 
-		final BigDecimal minuend = minuendTerm != null ? new BigDecimal(minuendTerm.value) : null;
-		final BigDecimal subtrahend = subtrahendTerm != null ? new BigDecimal(subtrahendTerm.value) : null;
-		final BigDecimal difference = differenceTerm != null ? new BigDecimal(differenceTerm.value) : null;
+		final BigDecimal minuend = minuendTerm != null ? new BigDecimal(minuendTerm.name) : null;
+		final BigDecimal subtrahend = subtrahendTerm != null ? new BigDecimal(subtrahendTerm.name) : null;
+		final BigDecimal difference = differenceTerm != null ? new BigDecimal(differenceTerm.name) : null;
 
 		switch ((int) Stream.of(minuend, subtrahend, difference).filter(Objects::nonNull).count())
 		{

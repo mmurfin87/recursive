@@ -10,18 +10,18 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Term
 {
-	public static Term l(@NonNull final Object value)
+	public static Term l(@NonNull final Object name)
 	{
-		return new Term(value.toString(), true);
+		return new Term(name.toString(), true);
 	}
 
-	public static Term t(@NonNull final String value)
+	public static Term t(@NonNull final String name)
 	{
-		return new Term(value, false);
+		return new Term(name, false);
 	}
 
 	@NonNull
-	public final String value;
+	public final String name;
 	public final boolean isLiteral;
 
 	public Term resolve(@NonNull final Context context)

@@ -7,9 +7,9 @@ import lombok.NonNull;
 import lombok.ToString;
 
 @ToString
-public class Extract extends Expression
+public class Query extends Expression
 {
-	public Extract(@NonNull final Term name, @NonNull final Invocation invocation)
+	public Query(@NonNull final Term name, @NonNull final Invocation invocation)
 	{
 		super(name);
 		this.invocation = invocation;
@@ -21,9 +21,9 @@ public class Extract extends Expression
 		context.scoped(ctx ->
 		{
 			invocation.evaluate(ctx);
-			return new Binding[] { new Binding(value.value, value.value) };
+			return new Binding[] { new Binding(value.name, value.name) };
 		});
-		return new Expression(context.expect(value.value));
+		return new Expression(context.expect(value.name));
 	}
 
 	private final Invocation invocation;

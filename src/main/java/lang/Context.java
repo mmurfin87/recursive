@@ -4,11 +4,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @ToString
 public class Context
@@ -51,12 +49,12 @@ public class Context
 		return this;
 	}
 
-	private ExpressionContext search(@NonNull final String name)
+	private Optional<ExpressionContext> search(@NonNull final String name)
 	{
 		final ExpressionContext local = map.get(name);
 		if (local == null && parent != null)
 			return parent.search(name);
-		return local;
+		return Optional.ofNullable(local);
 	}
 
 	public Term expect(@NonNull final String name)
@@ -66,16 +64,12 @@ public class Context
 
 	public Optional<Term> accept(@NonNull final String name)
 	{
-		final ExpressionContext ec = search(name);
-		return ec == null ? Optional.empty() : Optional.of(ec.expression);
+		return search(name).map(ec -> ec.expression);
 	}
 
-	public Term expectLiteral(@NonNull final String name)
+	public <T> Map<String, T> accept(@NonNull final Set<String> names, final Function<Term, T> converter)
 	{
-		final Term e = expect(name);
-		if (!e.isLiteral)
-			throw new RuntimeException("Expected Literal for " + name + " but found " + e);
-		return e;
+		return names.stream().collect(Collectors.toMap(Function.identity(), name -> accept(name).map(converter).orElse(null)));
 	}
 
 	private String tabs()
