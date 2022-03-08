@@ -1,0 +1,18 @@
+// statements are one of:
+// 1. binding: identifier = literal | identifier | definition
+//      - where the left identifier is bound to the right statement
+// 2. assertion: identifier(binding list);
+//      - where the left term in each binding is exported to the outside context
+// 3. definition: (identifier list) { statement list }
+//      - where identifiers are added to the outside context
+//      - and the statement list is processed in topologically by term dependencies in declaration order
+//      - and the inner context is erased after exiting, leaving only the final values of the left term values exported
+// A Context is a key/value map of identifiers to literals or definitions
+
+// value will be added to this scope
+(value)
+{
+    subtract(minuend = 4, subtrahend = 2); // difference
+    add(augend = 1, addend = difference); // sum
+    value = sum
+}
