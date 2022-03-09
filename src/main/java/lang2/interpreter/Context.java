@@ -8,9 +8,10 @@ import java.util.Optional;
 public interface Context
 {
 	Context fork();
+	//Context splice(Context parent);
 	Optional<Context> parent();
 	Context put(@NonNull String identifier, @NonNull ContextValue value);
 	Optional<ContextValue> get(@NonNull String identifier);
-	//Optional<ContextValue> getLocal(@NonNull String identifier);
-	Context transfer(@NonNull Context target, List<String> identifierList, boolean global);
+	Context transferLocal(@NonNull Context target);
+	Context transferLocal(@NonNull Context target, @NonNull List<String> identifierList);
 }

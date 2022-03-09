@@ -2,9 +2,7 @@ package lang2.ast;
 
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
-import lombok.ToString;
 
-@ToString
 @EqualsAndHashCode
 public class Binding
 {
@@ -17,13 +15,22 @@ public class Binding
 		this.which = UNBOUND;
 	}
 
-	public Binding(@NonNull final String identifier, @NonNull final String right, boolean isLiteral)
+	public Binding(@NonNull final String identifier, @NonNull final Literal literal)
 	{
 		this.identifier = identifier;
-		this.rightLiteral = isLiteral ? right : null;
-		this.rightIdentifier = isLiteral ? null : right;
+		this.rightLiteral = literal;
+		this.rightIdentifier = null;
 		this.rightDefinition = null;
-		this.which = isLiteral ? LITERAL : IDENTIFIER;
+		this.which = LITERAL;
+	}
+
+	public Binding(@NonNull final String identifier, @NonNull final String rightIdentifier)
+	{
+		this.identifier = identifier;
+		this.rightLiteral = null;
+		this.rightIdentifier = rightIdentifier;
+		this.rightDefinition = null;
+		this.which = IDENTIFIER;
 	}
 
 	public Binding(@NonNull final String identifier, @NonNull final Definition definition)
@@ -35,9 +42,21 @@ public class Binding
 		this.which = DEFINITION;
 	}
 
+	@Override
+	public String toString()
+	{
+		return identifier + " = " + switch (which)
+		{
+			case UNBOUND, default -> "<UNBOUND>";
+			case LITERAL -> rightLiteral;
+			case IDENTIFIER -> rightIdentifier;
+			case DEFINITION ->  rightDefinition.toString();
+		};
+	}
+
 	@NonNull
 	public final String identifier;
-	public final String rightLiteral;
+	public final Literal rightLiteral;
 	public final String rightIdentifier;
 	public final Definition rightDefinition;
 	public final int which;

@@ -13,7 +13,7 @@ public class ContextUtils
 		final ContextValue cv = context.get(identifier).orElse(null);
 		if (cv == null)
 			return Optional.empty();
-		else if (!cv.isLiteral)
+		else if (cv.which != ContextValue.LITERAL)
 			throw new RuntimeException("Expected Literal: " + identifier);
 		return Optional.of(cv.literal);
 	}

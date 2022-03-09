@@ -4,7 +4,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
 
-@ToString
 @EqualsAndHashCode
 public class Statement
 {
@@ -38,5 +37,17 @@ public class Statement
 		this.which = DEFINITION;
 		this.binding = null;
 		this.assertion = null;
+	}
+
+	@Override
+	public String toString()
+	{
+		return (switch(which)
+		{
+			case BINDING -> binding;
+			case ASSERTION -> assertion;
+			case DEFINITION -> definition;
+			default -> "UNKNOWN";
+		}).toString();
 	}
 }

@@ -16,3 +16,16 @@
     add(augend = 1, addend = difference); // sum
     value = sum
 }
+
+// CONTEXT: {
+	add=InterpreterDefinition(identifierList=[augend, addend, sum]),
+	minuend=3,
+	print=InterpreterDefinition(identifierList=[message]),
+	subtract=ExecutableDefinition(
+		statementList=[
+			tmp = minuend,
+			Assertion(identifier=dumpcontext, bindingList=[]),
+			Assertion(identifier=add, bindingList=[augend = subtrahend, addend = difference, sum = tmp])]),
+	subtrahend=1,
+	dumpcontext=InterpreterDefinition(identifierList=[])
+}

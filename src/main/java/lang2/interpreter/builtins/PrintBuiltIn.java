@@ -16,7 +16,7 @@ public class PrintBuiltIn extends BuiltInDefinition
 	}
 
 	@Override
-	protected void executeInternal(@NonNull Context context)
+	public void executeDirectly(@NonNull Context context)
 	{
 		final Optional<String> message = expectLiteralOrNothing("message", context);
 		System.out.println(message.orElse(""));
