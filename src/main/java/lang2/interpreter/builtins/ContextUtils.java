@@ -17,4 +17,14 @@ public class ContextUtils
 			throw new RuntimeException("Expected Literal: " + identifier);
 		return Optional.of(cv.literal);
 	}
+
+	public static Optional<String> expectDefinitionOrNothing(@NonNull final Context context, @NonNull final String identifier)
+	{
+		final ContextValue cv = context.get(identifier).orElse(null);
+		if (cv == null)
+			return Optional.empty();
+		else if (cv.which != ContextValue.DEFINITION)
+			throw new RuntimeException("Expected Literal: " + identifier);
+		return Optional.of(cv.literal);
+	}
 }
